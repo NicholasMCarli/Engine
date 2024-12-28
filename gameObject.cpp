@@ -10,11 +10,14 @@ struct gameObject
 {
 	glm::vec3 position{ };
 	glm::vec3 rotation{ };
+	unsigned int vao{ };
+	unsigned int vbo{ };
+	float vertices[3*3] = {};
 };
 
 struct cube : gameObject
 {
-	float vertices[9] = 
+	float vertices[3*3] =
 	{
 		-0.5, -0.5, 0.0,
 		 0.5, -0.5, 0.0,

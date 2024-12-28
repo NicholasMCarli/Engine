@@ -27,12 +27,12 @@
     <ClCompile Include="gameObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="upload_directions.cpp">
+    <ClCompile Include="upload_directions.txt">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="VertexShader.txt">
+    <None Include="VertexShader.glsl">
       <Filter>Source Files\Shaders</Filter>
     </None>
   </ItemGroup>

@@ -150,10 +150,10 @@
     <ClCompile Include="gameObject.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="upload_directions.cpp" />
+    <ClCompile Include="upload_directions.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="VertexShader.txt" />
+    <None Include="VertexShader.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
