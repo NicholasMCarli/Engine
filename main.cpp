@@ -29,12 +29,12 @@ public:
 		vertex_shader_src = get_shader_file("VertexShader.glsl");
 		std::cout << vertex_shader_src << std::endl;
 
-		const char* vertex_shader_src_cstr = vertex_shader_src.c_str();
+		const char* vertex_shader_src_charStr = vertex_shader_src.c_str();
 
 		unsigned int shader_program = glCreateProgram();
 		unsigned int vertex_shader = glCreateShader(GL_VERTEX_SHADER);
 
-		glShaderSource(vertex_shader, 1, vertex_shader_src_cstr, NULL);
+		glShaderSource(vertex_shader, 1,&vertex_shader_src_charStr, NULL);
 		glCompileShader(vertex_shader);
 	};
 
