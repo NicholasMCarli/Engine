@@ -5,25 +5,66 @@
 #include<GLFW/glfw3.h>
 #include"gameObject.cpp"
 
-struct Shader {
+struct Scene
+{
+	gameObject* gameObjects{};
+	unsigned int numGameObjects{ };
 public:
-	Shader(std::string Vertex_shader_filepath)
+	void render_scene()
 	{
-		std::string vertex_src{};
-		std::fstream vertex_shader(Vertex_shader_filepath, std::ios::in | std::ios::out | std::ios::app);
-
-		if (vertex_shader.fail())
+		for (int i = 0; i < numGameObjects; i++)
 		{
-			std::cout << "Vertex Shader failed to open" << std::endl;
+			glBindVertexArray(gameObjects[i].vao);
+			glDrawArrays(GL_TRIANGLES, 0, sizeof(&gameObjects[i].vertices));
+		}
+	};
+};
+
+struct Shader {
+	mutable std::string vertex_shader_src{ };
+public:
+	Shader()
+	{
+
+		vertex_shader_src = get_shader_file("VertexShader.glsl");
+		std::cout << vertex_shader_src << std::endl;
+
+		const char* vertex_shader_src_charStr = vertex_shader_src.c_str();
+
+		unsigned int shader_program = glCreateProgram();
+		unsigned int vertex_shader = glCreateShader(GL_VERTEX_SHADER);
+
+		glShaderSource(vertex_shader, 1,&vertex_shader_src_charStr, NULL);
+		glCompileShader(vertex_shader);
+	};
+
+	std::string get_shader_file(std::string filepath)
+	{
+		std::string file_src{};
+		std::fstream File(filepath, std::ios::in | std::ios::out | std::ios::app);
+
+		if (File.fail())
+		{
+			std::cout << "File failed to open" << std::endl;
+			return "Failed";
+		}
+		else
+		{
+			std::cout << "File opened successfully" << std::endl;
 		}
 
 		std::string line;
-		while (std::getline(vertex_shader, line))
+		while (std::getline(File, line))
 		{
-			vertex_src += line + "/n";
+			file_src += line + "\n";
 		}
-		std::cout << vertex_src << std::endl;
+		return file_src;
 	};
+	unsigned int get_shader()
+	{
+		return 1;
+	}
+	
 };
 int main()
 {
@@ -46,12 +87,12 @@ int main()
 
 	gladLoadGL();
 
-	 
-	glViewport(0, 0, 1000/2, 600/2);
-
-
 	cube Cube;
-	Shader shader("VertexShader.txt");
+	Shader Shader;
+	 
+	glViewport(0, 0, 1000, 600);
+
+
 	// main loop
 	while (!glfwWindowShouldClose(window))
 	{
@@ -65,6 +106,7 @@ int main()
 
 		glBindVertexArray(Cube.vao);
 		glDrawArrays(GL_TRIANGLES, 0, sizeof(&Cube.vertices));
+		glUseProgram(Shader.get_shader());
 	}
 	// terminate all instances of window
 	glfwDestroyWindow(window);
