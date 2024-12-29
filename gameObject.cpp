@@ -3,25 +3,30 @@
 #include<GLFW/glfw3.h>
 #include<GLM/glm.hpp>
 
-#define glGenVertexArrays
-#define glGenBuffers
-
 struct gameObject
 {
+	std::string Name;
 	glm::vec3 position{ };
 	glm::vec3 rotation{ };
 	unsigned int vao{ };
 	unsigned int vbo{ };
 	float vertices[3*3] = {};
+public:
+	void Draw()
+	{
+		glBindVertexArray(vao);
+		glDrawArrays(GL_TRIANGLES, 0, 3);
+	};
 };
 
 struct cube : gameObject
 {
+	std::string Name = "Cube";
 	float vertices[3*3] =
 	{
-		-0.5, -0.5, 0.0,
-		 0.5, -0.5, 0.0,
-		-0.5,  0.5, 0.0,
+		-0.5, -0.5, -0.5,
+		 0.5, -0.5, -0.5,
+		-0.5,  0.5, -0.5,
 
 	};
 
@@ -30,14 +35,17 @@ struct cube : gameObject
 public:
 	cube()
 	{
-		glGenVertexArrays(1, &cube::vao);
-		glGenBuffers(1, &cube::vbo);
+		glGenVertexArrays(1, &vao);
+		glBindVertexArray(vao);
 
-		glBindBuffer(GL_ARRAY_BUFFER, cube::vbo);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(cube::vbo), vertices, GL_STATIC_DRAW);
+		glGenBuffers(1, &vbo);
 
 
-		glVertexAttribIPointer(0, 3, GL_FALSE, 3 * 4 , (void*)0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * 4, (void*)0);
 		glEnableVertexAttribArray(0);
+
+		glBindBuffer(GL_ARRAY_BUFFER, vbo);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
 	}
 };

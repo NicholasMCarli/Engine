@@ -153,6 +153,7 @@
     <ClCompile Include="upload_directions.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="FragmentShader.glsl" />
     <None Include="VertexShader.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
