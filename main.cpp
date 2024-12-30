@@ -7,11 +7,19 @@
 #include<GLFW/glfw3.h>
 #include"gameObject.cpp"
 
-struct Scene
+template <typename Derived, typename Base>
+bool Inherits_from(Derived obj) 
 {
-<<<<<<< HEAD
+	 if (typeid(obj) == Base))
+	 {
+		 return true;
+	 }
+}
+
+
+struct Scene {
 	std::vector<gameObject*> gameObjects = {  };
-	 int numGameObjects{ };
+	int numGameObjects{ };
 public:
 	void render_scene()
 	{
@@ -24,35 +32,19 @@ public:
 			{
 				obj->Draw();
 			}
-=======
-	gameObject* gameObjects{};
-	unsigned int numGameObjects{ };
-public:
-	void render_scene()
-	{
-		for (int i = 0; i < numGameObjects; i++)
-		{
-			glBindVertexArray(gameObjects[i].vao);
-			glDrawArrays(GL_TRIANGLES, 0, sizeof(&gameObjects[i].vertices));
->>>>>>> 40386bebb0a9c6de959c7ec61e5a1a2fba0a9ab9
 		}
 	};
 };
 
 struct Shader {
-<<<<<<< HEAD
 	unsigned int shader{};
 	 std::string vertex_shader_src{ };
 	 std::string Fragment_shader_src{ };
-=======
-	mutable std::string vertex_shader_src{ };
->>>>>>> 40386bebb0a9c6de959c7ec61e5a1a2fba0a9ab9
 public:
 	Shader()
 	{
 
 		vertex_shader_src = get_shader_file("VertexShader.glsl");
-<<<<<<< HEAD
 		Fragment_shader_src = get_shader_file("FragmentShader.glsl");
 		const char* vertex_shader_src_char = vertex_shader_src.c_str();
 		const char* Fragment_shader_src_char = Fragment_shader_src.c_str();
@@ -82,17 +74,6 @@ public:
 
 		
 		shader = shader_program;
-=======
-		std::cout << vertex_shader_src << std::endl;
-
-		const char* vertex_shader_src_charStr = vertex_shader_src.c_str();
-
-		unsigned int shader_program = glCreateProgram();
-		unsigned int vertex_shader = glCreateShader(GL_VERTEX_SHADER);
-
-		glShaderSource(vertex_shader, 1,&vertex_shader_src_charStr, NULL);
-		glCompileShader(vertex_shader);
->>>>>>> 40386bebb0a9c6de959c7ec61e5a1a2fba0a9ab9
 	};
 
 	std::string get_shader_file(std::string filepath)
@@ -119,16 +100,13 @@ public:
 	};
 	unsigned int get_shader()
 	{
-<<<<<<< HEAD
 		return shader;
-=======
-		return 1;
->>>>>>> 40386bebb0a9c6de959c7ec61e5a1a2fba0a9ab9
 	}
 	
 };
 int main()
 {
+
 	glfwInit();
 
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -142,40 +120,30 @@ int main()
 	if (!window)
 	{
 		std::cout << "window doesn't exist" << std::endl;
+		glfwDestroyWindow(window);
+		glfwTerminate();
+		
 		return -1;
 	}
 	glfwMakeContextCurrent(window);
 
-	gladLoadGL();
+	glViewport(0, 0, width, height);
 
-<<<<<<< HEAD
-=======
-	cube Cube;
-	Shader Shader;
->>>>>>> 40386bebb0a9c6de959c7ec61e5a1a2fba0a9ab9
-	 
-	glViewport(0, 0, 1000, 600);
-
-
-<<<<<<< HEAD
-	Scene scene;
-	cube* Cube = new cube;
+	Cube cube1;
 	Shader shader;
 
-	Cube->Name = "Cube";
+	std::cout << typeid(cube1).name() << '\n';;
 
-	scene.gameObjects.push_back(Cube);
-
-
-	if (std::is_base_of<gameObject, cube>::value) {
-		std::cout << "cube inherits from gameObject\n";
-	}
-	else {
-		std::cout << "cube does not inherit from gameObject\n";
+	if (Inherits_from<Cube, gameObject>(cube1))
+	{
+		std::cout << " game " << '\n';
 	}
 
-=======
->>>>>>> 40386bebb0a9c6de959c7ec61e5a1a2fba0a9ab9
+
+	
+
+
+
 	// main loop
 	while (!glfwWindowShouldClose(window))
 	{
@@ -186,17 +154,10 @@ int main()
 
 		glUseProgram(shader.get_shader());
 
-		scene.render_scene();
+		cube1.Draw();
 
 		glfwPollEvents();
 		glfwSwapBuffers(window);
-<<<<<<< HEAD
-=======
-
-		glBindVertexArray(Cube.vao);
-		glDrawArrays(GL_TRIANGLES, 0, sizeof(&Cube.vertices));
-		glUseProgram(Shader.get_shader());
->>>>>>> 40386bebb0a9c6de959c7ec61e5a1a2fba0a9ab9
 	}
 	// terminate all instances of window
 	glfwDestroyWindow(window);
