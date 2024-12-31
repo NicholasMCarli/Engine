@@ -3,18 +3,11 @@
 #include <string>
 #include <type_traits>
 #include <vector>
-#include<glad/glad.h>
-#include<GLFW/glfw3.h>
+#include"glad/glad.h"
+#include"GLFW/glfw3.h"
 #include"gameObject.cpp"
 
-template <typename Derived, typename Base>
-bool Inherits_from(Derived obj) 
-{
-	 if (typeid(obj) == Base))
-	 {
-		 return true;
-	 }
-}
+using namespace std;
 
 
 struct Scene {
@@ -133,17 +126,6 @@ int main()
 	Shader shader;
 
 	std::cout << typeid(cube1).name() << '\n';;
-
-	if (Inherits_from<Cube, gameObject>(cube1))
-	{
-		std::cout << " game " << '\n';
-	}
-
-
-	
-
-
-
 	// main loop
 	while (!glfwWindowShouldClose(window))
 	{

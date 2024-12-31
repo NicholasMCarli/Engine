@@ -1,7 +1,7 @@
 #include<iostream>
-#include<glad/glad.h>
-#include<GLFW/glfw3.h>
-#include<GLM/glm.hpp>
+#include"glad/glad.h"
+#include"GLFW/glfw3.h"
+#include"glm/glm.hpp"
 
 struct gameObject
 {
